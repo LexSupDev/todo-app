@@ -4,23 +4,25 @@ import "./App.css";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
+  const [doneTasksList, setDoneTasksList] = useState([])
   const [inputValue, setInputValue] = useState("");
 
   const addTaskHandler = () => {
-    inputValue.trim() && setTodoList([...todoList, inputValue]);
-    setInputValue("");
+    inputValue.trim() && setTodoList([...todoList, {taskName: inputValue, id: Math.random()}]);
+    setInputValue('');
   };
 
   const inputHandler = (e) => {
     setInputValue(e.target.value);
   };
 
-  const deleteTaskHandler = (e) => {
-    setTodoList([...todoList].filter( task => task !== e));
+  const deleteTaskHandler = (id) => {
+    setTodoList(todoList.filter(el => el.id !== id));
   };
 
-  const doneTaskHandler = () => {
-
+  const doneTaskHandler = (id) => {
+    setTodoList(todoList.filter(el => el.id !== id));
+    setDoneTasksList([...doneTasksList, ...todoList.filter(el => el.id === id)])
   };
 
   return (
@@ -42,12 +44,12 @@ function App() {
           </button>
         </div>
         <div className="row justify-start mt-10 flex flex-col">
-          <h3>Tasks to do - 4</h3>
+          <h3>Tasks to do - {todoList.length}</h3>
           {todoList.map((el) => (
-            <div className="bg-[#15101C] w-full flex flex-row justify-between p-5 mt-4 rounded-md">
-              <p>{el}</p>
+            <div  className="bg-[#15101C] w-full flex flex-row justify-between p-5 mt-4 rounded-md">
+              <p>{el.taskName}</p>
               <div>
-                <button onClick={doneTaskHandler} className="mr-2">
+                <button onClick={() => doneTaskHandler(el.id)} className="mr-2">
                   <svg
                     className="w-6 h-6 text-gray-800 dark:text-white"
                     aria-hidden="true"
@@ -66,7 +68,7 @@ function App() {
                     />
                   </svg>
                 </button>
-                <button onClick={() => deleteTaskHandler(el)}>
+                <button onClick={() => deleteTaskHandler(el.id)}>
                   <svg
                     className="w-6 h-6 text-gray-800 dark:text-white"
                     aria-hidden="true"
@@ -88,10 +90,12 @@ function App() {
           ))}
         </div>
         <div className="row justify-start mt-10 flex flex-col">
-          <h3>Done - 1</h3>
-          <div className="bg-[#15101C] w-full flex flex-row justify-between p-5 mt-4 rounded-md">
-            <p className="">To study React fundamentals</p>
+          <h3>Done - {doneTasksList.length}</h3>
+          {doneTasksList.map((el) => (
+            <div className="bg-[#15101C] w-full flex flex-row justify-between p-5 mt-4 rounded-md">
+            <p className="line-through">{el.taskName}</p>
           </div>
+          ))}
         </div>
       </div>
     </>
