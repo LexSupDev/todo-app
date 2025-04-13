@@ -51,7 +51,7 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col w-150 bg-gray-700 p-15 border-indigo-500 rounded-md border border-solid">
+      <div className="flex flex-col w-100 lg:w-150 bg-gray-700 p-15 border-indigo-500 rounded-md border border-solid">
         <h1 className="text-xl font-bold text-center">Список задач</h1>
         <div className="row flex flex-row justify-center mt-10">
           <input
