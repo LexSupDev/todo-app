@@ -1,4 +1,4 @@
-export const Todo = ({
+export const Task = ({
   id,
   taskName,
   updateTaskName,

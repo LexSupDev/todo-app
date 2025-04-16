@@ -1,7 +1,8 @@
 //import { useState } from 'react'
 import { useState } from "react";
-import { Todo } from "./Components/Todo";
+import { Task } from "./Components/Task";
 import "./App.css";
+import { DoneTask } from "./Components/DoneTask";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -64,7 +65,7 @@ function App() {
             className="border-indigo-500 rounded-md border-2 border-solid w-full"
           />
           <button
-            className="bg-indigo-500 rounded-md ml-2 size-8 font-bold hover:bg-indigo-800"
+            className="bg-indigo-500 rounded-md ml-2 pb-1.5 pl-2.5 pr-2.5 text-xl font-bold hover:bg-indigo-800"
             onClick={addTaskHandler}
           >
             +
@@ -73,7 +74,7 @@ function App() {
         <div className="row justify-start mt-10 flex flex-col">
           <h3>Tasks to do - {todoList.length}</h3>
           {todoList.map((el) => (
-            <Todo
+            <Task
               key={el.id}
               id={el.id}
               taskName={el.taskName}
@@ -89,9 +90,7 @@ function App() {
           <div className="row justify-start mt-10 flex flex-col">
             <h3>Done - {doneTasksList.length}</h3>
             {doneTasksList.map((el) => (
-              <div className="bg-[#15101C] w-full flex flex-row justify-between p-5 mt-4 rounded-md">
-                <p className="line-through">{el.taskName}</p>
-              </div>
+              <DoneTask taskName={el.taskName} key={el.id}/>
             ))}
           </div>
         </div>
